@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import com.springwebiv.model.entity.Funcionario;
 import com.springwebiv.model.repository.FuncionarioRepository;
@@ -19,6 +20,9 @@ public class FuncionarioService {
 	private FuncionarioRepository funcionarioRepository;
 	
 	public Funcionario cadastrarFuncionario(Funcionario funcionario) {
+		
+		Assert.isTrue(funcionario.getIdade() >= 16, "O funcionario deve ser maior de 16 anos");
+
 		return this.funcionarioRepository.save(funcionario);
 	}
 	

@@ -3,9 +3,12 @@ package com.springwebiv.model.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +30,11 @@ public class Funcionario implements Serializable {
 	private Long id;
 	private String nome;
 	private BigDecimal salario;
+	@Column(unique = true, nullable = false, length = 11)
+	private String cpf;
+	
+	@Transient
+	private Integer idade;
 
 }
 

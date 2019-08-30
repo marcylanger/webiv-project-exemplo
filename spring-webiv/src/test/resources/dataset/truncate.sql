@@ -1,1 +1,1 @@
-TRUNCATE "funcionario" CASCADE;
+TRUNCATE funcionario CASCADE;

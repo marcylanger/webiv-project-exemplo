@@ -1,10 +1,12 @@
 package com.springwebiv.model.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.jdbc.Sql;
 
 import com.springwebiv.model.entity.Funcionario; 
@@ -27,4 +29,71 @@ public class FuncionarioTests extends AbstractIntegrationTests
 		Assert.assertEquals( funcionarios.size(), 1 );
 		
 	}
+	
+	@Test
+	@Sql({
+		"/dataset/truncate.sql",
+		"/dataset/funcionarios.sql"
+	})
+	public void cadastrarFuncionarioMustPass() {
+		Funcionario funcionario = new 
+				Funcionario();
+		funcionario.setNome("Maria");
+		funcionario.setSalario(new BigDecimal(30000));
+		funcionario.setCpf("44444444444");
+	
+		funcionarioService.cadastrarFuncionario(funcionario);
+		
+		Assert.assertNotNull(funcionario.getId());
+		
+	}
+	
+	@Test(expected = DataIntegrityViolationException.class)
+	@Sql({
+		"/dataset/truncate.sql",
+		"/dataset/funcionarios.sql"
+	})
+	 public void cadastrarFuncionarioMustFailCpfDuplicado() {
+		 Funcionario funcionario = new 
+					Funcionario();
+			funcionario.setNome("Maria");
+			funcionario.setSalario(new BigDecimal(30000));
+			funcionario.setCpf("22222222222");
+		
+			funcionarioService.cadastrarFuncionario(funcionario);
+			
+			
+	 }
+	
+	@Test(expected = IllegalArgumentException.class)
+	@Sql({
+		"/dataset/truncate.sql",
+		"/dataset/funcionarios.sql"
+	})
+	public void cadastrarFuncionarioMustFailIdadeMenor() {
+		Funcionario funcionario = new 
+				Funcionario();
+		funcionario.setNome("Maria");
+		funcionario.setSalario(new BigDecimal(30000));
+		funcionario.setCpf("64444444444");
+		funcionario.setIdade(15);
+	
+		funcionarioService.cadastrarFuncionario(funcionario);
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
