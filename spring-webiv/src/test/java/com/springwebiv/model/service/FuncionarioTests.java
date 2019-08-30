@@ -41,6 +41,8 @@ public class FuncionarioTests extends AbstractIntegrationTests
 		funcionario.setNome("Maria");
 		funcionario.setSalario(new BigDecimal(30000));
 		funcionario.setCpf("44444444444");
+		funcionario.setIdade(20);
+		
 	
 		funcionarioService.cadastrarFuncionario(funcionario);
 		
@@ -59,6 +61,7 @@ public class FuncionarioTests extends AbstractIntegrationTests
 			funcionario.setNome("Maria");
 			funcionario.setSalario(new BigDecimal(30000));
 			funcionario.setCpf("22222222222");
+			funcionario.setIdade(20);
 		
 			funcionarioService.cadastrarFuncionario(funcionario);
 			
