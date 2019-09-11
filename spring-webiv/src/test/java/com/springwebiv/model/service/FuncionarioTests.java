@@ -1,6 +1,8 @@
 package com.springwebiv.model.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 
 import org.junit.Assert;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.jdbc.Sql;
 
+import com.springwebiv.model.entity.CargoEnum;
 import com.springwebiv.model.entity.Funcionario; 
 
 
@@ -41,12 +44,33 @@ public class FuncionarioTests extends AbstractIntegrationTests
 		funcionario.setNome("Maria");
 		funcionario.setSalario(new BigDecimal(30000));
 		funcionario.setCpf("44444444444");
-		funcionario.setIdade(20);
-		
+		funcionario.setDataNascimento(LocalDate.of(1990, Month.JANUARY, 1));
+		funcionario.setCargo(CargoEnum.ANALISTA_SISTEMAS);
 	
 		funcionarioService.cadastrarFuncionario(funcionario);
 		
 		Assert.assertNotNull(funcionario.getId());
+		
+	}
+	
+	@Test
+	@Sql({
+		"/dataset/truncate.sql",
+		"/dataset/funcionarios.sql"
+	})
+	public void cadastrarFuncionarioMustPassVerificandoIdade() {
+		Funcionario funcionario = new 
+				Funcionario();
+		funcionario.setNome("Maria");
+		funcionario.setSalario(new BigDecimal(30000));
+		funcionario.setCpf("44444444444");
+		funcionario.setDataNascimento(LocalDate.of(1990, Month.JANUARY, 1));
+		funcionario.setCargo(CargoEnum.ANALISTA_SISTEMAS);
+	
+		funcionarioService.cadastrarFuncionario(funcionario);
+		
+		Assert.assertNotNull(funcionario.getId());
+		Assert.assertTrue(funcionario.getIdade().equals(29));
 		
 	}
 	
@@ -61,8 +85,9 @@ public class FuncionarioTests extends AbstractIntegrationTests
 			funcionario.setNome("Maria");
 			funcionario.setSalario(new BigDecimal(30000));
 			funcionario.setCpf("22222222222");
-			funcionario.setIdade(20);
-		
+			funcionario.setDataNascimento(LocalDate.of(1995, Month.JANUARY, 1));
+			funcionario.setCargo(CargoEnum.ANALISTA_SISTEMAS);
+			
 			funcionarioService.cadastrarFuncionario(funcionario);
 			
 			
@@ -79,10 +104,11 @@ public class FuncionarioTests extends AbstractIntegrationTests
 		funcionario.setNome("Maria");
 		funcionario.setSalario(new BigDecimal(30000));
 		funcionario.setCpf("64444444444");
-		funcionario.setIdade(15);
+		funcionario.setDataNascimento(LocalDate.of(2010, Month.JANUARY, 1));
+		funcionario.setCargo(CargoEnum.ANALISTA_SISTEMAS);
 	
 		funcionarioService.cadastrarFuncionario(funcionario);
-		
+	
 		
 	}
 	
