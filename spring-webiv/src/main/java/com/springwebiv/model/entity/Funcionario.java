@@ -12,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -21,20 +22,19 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@EqualsAndHashCode
-@ToString
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Funcionario implements Serializable {
+public class Funcionario extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue
-	private Long id;
+	
 	private String nome;
 	private BigDecimal salario;
+	
 	@Column(unique = true, nullable = false, length = 11)
+	@NotBlank
 	private String cpf;
 	
 	private LocalTime horaEntrada;
