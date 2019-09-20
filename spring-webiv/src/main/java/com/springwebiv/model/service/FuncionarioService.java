@@ -19,15 +19,47 @@ public class FuncionarioService {
 	@Autowired
 	private FuncionarioRepository funcionarioRepository;
 	
+	
+	/**
+	 * Serviço para inserir um novo funcionário
+	 * 
+	 * @param funcionario
+	 * @return
+	 */
 	public Funcionario cadastrarFuncionario(Funcionario funcionario) {
-		
-		Assert.isTrue(funcionario.getIdade() >= 16, "O funcionario deve ser maior de 16 anos");
-
 		return this.funcionarioRepository.save(funcionario);
 	}
 	
+	/**
+	 * Serviço para atualizar o cadastro de um funcionario
+	 * @param funcionario
+	 * @return
+	 */
+	public Funcionario atualizarFuncionario(Funcionario funcionario) {
+		return this.funcionarioRepository.save(funcionario);
+	}
 	
+	/**
+	 * Serviço para listar os funcionários cadastrados
+	 * @return
+	 */
 	public List<Funcionario> listarFuncionarios(){
 		return this.funcionarioRepository.findAll();
 	}
+	
+	/**
+	 * Serviço para detalhar o cadastro de um funcionário
+	 * @param id
+	 * @return
+	 */
+	public Funcionario detalharFuncionario(Long id) {
+		return this.funcionarioRepository.findById(id).orElse(null);
+	}
+	
+	
+	
+	
+	
+	
+	
 }
