@@ -53,8 +53,31 @@ public class FuncionarioService {
 	 * @param id
 	 * @return
 	 */
-	public Funcionario detalharFuncionario(Long id) {
-		return this.funcionarioRepository.findById(id).orElse(null);
+	public Funcionario detalharFuncionario(long id) {
+		
+		Funcionario  funcionario = this.funcionarioRepository.findById(id).orElse(null);
+		
+		Assert.notNull(funcionario, "O Id "+ id +" não foi encontrado.");
+		
+		return funcionario;
 	}
+	
+	/**
+	 * Serviço que remove um funcionário cadastrado
+	 * @param id
+	 */
+	public void removerFuncionario(long id) {
+		this.funcionarioRepository.deleteById(id);
+	}
+	
+	
+	
+	
+	
+	
 
+	
+	
+	
+	
 }

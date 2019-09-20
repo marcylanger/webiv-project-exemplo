@@ -6,12 +6,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
@@ -34,7 +37,10 @@ import lombok.ToString;
 public class Funcionario extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	
+
+	/**
+	 * =========================== ATRIBUTOS
+	 */
 	
 	@NotBlank
 	private String nome;
@@ -58,8 +64,23 @@ public class Funcionario extends AbstractEntity implements Serializable {
 	@Enumerated( EnumType.ORDINAL )
 	private CargoEnum cargo;
 	
+	@ManyToOne(targetEntity = Departamento.class, 
+			cascade = CascadeType.PERSIST,
+			fetch = FetchType.LAZY,
+			optional = false)
+	private Departamento departamento;
+	
+	
 	@Transient
 	private Integer idade;
+	
+	
+	/**
+	 * =========================== MÉTODOS
+	 */
+	
+	
+	
 	
 	public Integer getIdade() {
 		if(dataNascimento != null) {

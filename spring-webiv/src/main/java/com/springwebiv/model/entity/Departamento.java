@@ -24,4 +24,9 @@ public class Departamento extends AbstractEntity implements Serializable{/**
 	private String nome;
 	
 	private String descricao;
+	
+	
+	public Departamento(Long id) {
+		super.setId(id);
+	}
 }

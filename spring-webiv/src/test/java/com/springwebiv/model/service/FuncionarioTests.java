@@ -13,9 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.transaction.TransactionSystemException;
 
 import com.springwebiv.model.entity.CargoEnum;
+import com.springwebiv.model.entity.Departamento;
 import com.springwebiv.model.entity.Funcionario;
 import com.springwebiv.model.repository.FuncionarioRepository;
 
@@ -31,7 +31,9 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 	 * ====================================== LISTAR ===========================================
 	 */
 	@Test
-	@Sql({ "/dataset/truncate.sql", "/dataset/funcionarios.sql" })
+	@Sql({ "/dataset/truncate.sql",  
+		"/dataset/departamentos.sql", 
+		"/dataset/funcionarios.sql" })
 	public void listarFuncionariosMustPass() {
 		List<Funcionario> funcionarios = this.funcionarioService.listarFuncionarios();
 		Assert.assertEquals(funcionarios.size(), 2);
@@ -42,7 +44,9 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 	 * ====================================== CADASTRAR ===========================================
 	 */
 	@Test
-	@Sql({ "/dataset/truncate.sql", "/dataset/funcionarios.sql" })
+	@Sql({ "/dataset/truncate.sql",  
+		"/dataset/departamentos.sql", 
+		"/dataset/funcionarios.sql" })
 	public void cadastrarFuncionarioMustPass() {
 		Funcionario funcionario = new Funcionario();
 		funcionario.setNome("Maria");
@@ -50,6 +54,7 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 		funcionario.setCpf("44444444444");
 		funcionario.setDataNascimento(LocalDate.of(1990, Month.JANUARY, 1));
 		funcionario.setCargo(CargoEnum.GERENTE_PROJETOS);
+		funcionario.setDepartamento(new Departamento(1001L));
 
 		funcionarioService.cadastrarFuncionario(funcionario);
 
@@ -58,7 +63,9 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 	}
 
 	@Test
-	@Sql({ "/dataset/truncate.sql", "/dataset/funcionarios.sql" })
+	@Sql({ "/dataset/truncate.sql",  
+		"/dataset/departamentos.sql", 
+		"/dataset/funcionarios.sql" })
 	public void cadastrarFuncionarioMustPassVerificandoIdade() {
 		Funcionario funcionario = new Funcionario();
 		funcionario.setNome("Maria");
@@ -75,7 +82,9 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 	}
 
 	@Test(expected = DataIntegrityViolationException.class)
-	@Sql({ "/dataset/truncate.sql", "/dataset/funcionarios.sql" })
+	@Sql({ "/dataset/truncate.sql",  
+		"/dataset/departamentos.sql", 
+		"/dataset/funcionarios.sql" })
 	public void cadastrarFuncionarioMustFailCpfDuplicado() {
 		Funcionario funcionario = new Funcionario();
 		funcionario.setNome("Maria");
@@ -89,7 +98,9 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 	}
 
 	@Test(expected = InvalidDataAccessApiUsageException.class)
-	@Sql({ "/dataset/truncate.sql", "/dataset/funcionarios.sql" })
+	@Sql({ "/dataset/truncate.sql",  
+		"/dataset/departamentos.sql", 
+		"/dataset/funcionarios.sql" })
 	public void cadastrarFuncionarioMustFailIdadeMenor() {
 		Funcionario funcionario = new Funcionario();
 		funcionario.setNome("Maria");
@@ -103,7 +114,9 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 	}
 
 	@Test(expected = ConstraintViolationException.class)
-	@Sql({ "/dataset/truncate.sql", "/dataset/funcionarios.sql" })
+	@Sql({ "/dataset/truncate.sql",  
+		"/dataset/departamentos.sql", 
+		"/dataset/funcionarios.sql" })
 	public void cadastrarFuncionarioMustFailNomeEmBranco() {
 		Funcionario funcionario = new Funcionario();
 		funcionario.setNome("");
@@ -121,7 +134,9 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 	 */
 
 	@Test
-	@Sql({ "/dataset/truncate.sql", "/dataset/funcionarios.sql" })
+	@Sql({ "/dataset/truncate.sql",  
+		"/dataset/departamentos.sql", 
+		"/dataset/funcionarios.sql" })
 	public void atualizarFuncionarioMustPass() {
 		Funcionario funcionario = this.funcionarioRepository.findById(1001L).orElse(null);
 		funcionario.setDataNascimento(LocalDate.of(1990, Month.JANUARY, 1));
@@ -133,7 +148,9 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 	}
 
 	@Test
-	@Sql({ "/dataset/truncate.sql", "/dataset/funcionarios.sql" })
+	@Sql({ "/dataset/truncate.sql",  
+		"/dataset/departamentos.sql", 
+		"/dataset/funcionarios.sql" })
 	public void atualizarFuncionarioMustPassVerificandoIdade() {
 		Funcionario funcionario = this.funcionarioRepository.findById(1001L).orElse(null);
 		funcionario.setDataNascimento(LocalDate.of(1990, Month.JANUARY, 1));
@@ -145,7 +162,9 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 	}
 
 	@Test(expected = DataIntegrityViolationException.class)
-	@Sql({ "/dataset/truncate.sql", "/dataset/funcionarios.sql" })
+	@Sql({ "/dataset/truncate.sql",  
+		"/dataset/departamentos.sql", 
+		"/dataset/funcionarios.sql" })
 	public void atualizarFuncionarioMustFailCpfDuplicado() {
 		Funcionario funcionario = this.funcionarioRepository.findById(1001L).orElse(null);
 
@@ -158,7 +177,9 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 	}
 
 	@Test(expected = InvalidDataAccessApiUsageException.class)
-	@Sql({ "/dataset/truncate.sql", "/dataset/funcionarios.sql" })
+	@Sql({ "/dataset/truncate.sql",  
+		"/dataset/departamentos.sql", 
+		"/dataset/funcionarios.sql" })
 	public void atualizarFuncionarioMustFailIdadeMenor() {
 		Funcionario funcionario = this.funcionarioRepository.findById(1001L).orElse(null);
 
@@ -169,7 +190,9 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 	}
 
 	@Test(expected = ConstraintViolationException.class)
-	@Sql({ "/dataset/truncate.sql", "/dataset/funcionarios.sql" })
+	@Sql({ "/dataset/truncate.sql",  
+		"/dataset/departamentos.sql", 
+		"/dataset/funcionarios.sql" })
 	public void atualizarFuncionarioMustFailNomeEmBranco() {
 		Funcionario funcionario = new Funcionario();
 		funcionario.setNome("");
@@ -185,7 +208,9 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 	 * ================== DETALHAR ===============================
 	 */
 	@Test()
-	@Sql({ "/dataset/truncate.sql", "/dataset/funcionarios.sql" })
+	@Sql({ "/dataset/truncate.sql",  
+		"/dataset/departamentos.sql", 
+		"/dataset/funcionarios.sql" })
 	public void detalharFuncionarioMustPass() {
 		Funcionario funcionario = this.funcionarioService.detalharFuncionario(1001L);
 
@@ -194,6 +219,47 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 		Assert.assertEquals(funcionario.getCpf(), "22222222222");
 
 	}
+	
+	
+	@Test(expected = IllegalArgumentException.class)
+	@Sql({ "/dataset/truncate.sql",  
+		"/dataset/departamentos.sql", 
+		"/dataset/funcionarios.sql" })
+	public void detalharFuncionarioMustFailIdNaoExiste() {
+		
+		Funcionario funcionario = this.funcionarioService.detalharFuncionario(1L);
+	
+	}
+	
+	
+	/**
+	 * ================== EXCLUIR ===============================
+	 */
+	
+	@Test
+	@Sql({ "/dataset/truncate.sql",  
+		"/dataset/departamentos.sql", 
+		"/dataset/funcionarios.sql" })
+	public void removerFuncionarioMustPass() {
+		
+		this.funcionarioService.removerFuncionario(1001);
+		
+		Funcionario funcionario = 
+				this.funcionarioRepository.findById(1001L).orElse(null);
+		
+		Assert.assertNull(funcionario);
+	}
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 }
