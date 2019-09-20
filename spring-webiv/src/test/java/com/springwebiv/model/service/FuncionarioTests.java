@@ -150,6 +150,7 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 		funcionario.setDataNascimento(LocalDate.of(1990, Month.JANUARY, 1));
 		funcionario.setCpf("33333333333");
 	
+<<<<<<< HEAD
 		funcionarioService.atualizarFuncionario(funcionario);
 
 	}
@@ -192,4 +193,28 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 
 	}
 
+=======
+	
+	@Test
+	@Sql({
+		"/dataset/truncate.sql",
+		"/dataset/funcionarios.sql"
+	})
+	public void detalharFuncionarioMustPass() {
+		Funcionario funcionario = this.funcionarioService.detalharFuncionario(1001L);
+		
+		Assert.assertNotNull(funcionario);
+		Assert.assertNotNull(funcionario.getId());
+		Assert.assertEquals(funcionario.getCpf(), "22222222222");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+>>>>>>> branch 'master' of https://github.com/marcylanger/webiv-project-exemplo.git
 }

@@ -27,17 +27,14 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@EqualsAndHashCode
-@ToString
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Funcionario implements Serializable {
+public class Funcionario extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue
-	private Long id;
+	
 	
 	@NotBlank
 	private String nome;
