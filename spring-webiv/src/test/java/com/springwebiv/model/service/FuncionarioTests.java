@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,7 +102,7 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 
 	}
 
-	@Test(expected = TransactionSystemException.class)
+	@Test(expected = ConstraintViolationException.class)
 	@Sql({ "/dataset/truncate.sql", "/dataset/funcionarios.sql" })
 	public void cadastrarFuncionarioMustFailNomeEmBranco() {
 		Funcionario funcionario = new Funcionario();
@@ -150,7 +152,7 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 		funcionario.setDataNascimento(LocalDate.of(1990, Month.JANUARY, 1));
 		funcionario.setCpf("33333333333");
 	
-<<<<<<< HEAD
+
 		funcionarioService.atualizarFuncionario(funcionario);
 
 	}
@@ -166,7 +168,7 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 
 	}
 
-	@Test(expected = TransactionSystemException.class)
+	@Test(expected = ConstraintViolationException.class)
 	@Sql({ "/dataset/truncate.sql", "/dataset/funcionarios.sql" })
 	public void atualizarFuncionarioMustFailNomeEmBranco() {
 		Funcionario funcionario = new Funcionario();
@@ -193,28 +195,5 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 
 	}
 
-=======
-	
-	@Test
-	@Sql({
-		"/dataset/truncate.sql",
-		"/dataset/funcionarios.sql"
-	})
-	public void detalharFuncionarioMustPass() {
-		Funcionario funcionario = this.funcionarioService.detalharFuncionario(1001L);
-		
-		Assert.assertNotNull(funcionario);
-		Assert.assertNotNull(funcionario.getId());
-		Assert.assertEquals(funcionario.getCpf(), "22222222222");
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
->>>>>>> branch 'master' of https://github.com/marcylanger/webiv-project-exemplo.git
+
 }

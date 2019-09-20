@@ -47,7 +47,7 @@ public class FuncionarioService {
 		return this.funcionarioRepository.findAll();
 	}
 	
-<<<<<<< HEAD
+
 	/**
 	 * Serviço para detalhar o cadastro de um funcionário
 	 * @param id
@@ -56,16 +56,5 @@ public class FuncionarioService {
 	public Funcionario detalharFuncionario(Long id) {
 		return this.funcionarioRepository.findById(id).orElse(null);
 	}
-	
-	
-	
-	
-	
-	
-	
-=======
-	public Funcionario detalharFuncionario(Long id) {
-		return this.funcionarioRepository.findById(id).orElse(null);
-	}
->>>>>>> branch 'master' of https://github.com/marcylanger/webiv-project-exemplo.git
+
 }
