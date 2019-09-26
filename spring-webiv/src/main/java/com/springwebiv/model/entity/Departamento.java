@@ -30,8 +30,8 @@ public class Departamento extends AbstractEntity implements Serializable{/**
 	
 	private String descricao;
 	
-	/* OrphanRemoval true quer dizer que se eu remover 
-	 * todos os funcionários vinculados a esse departamento, ele também será removido
+	/* OrphanRemoval quer dizer que se excluirmos o departamento, se o funcionário
+	 *  não estiver vinculado a outro departamento ele será excluído
 	 * Enquanto que, cascade remove quer dizer que se eu remover o departamento os funcionários serão removidos*/
 	@OneToMany(targetEntity = Funcionario.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
 			fetch = FetchType.EAGER, mappedBy = "departamento", orphanRemoval = true)

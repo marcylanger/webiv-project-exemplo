@@ -27,4 +27,8 @@ public class DepartamentoService {
 	public Departamento atualizarDepartamento(Departamento departamento) {
 		return this.departamentoRepository.save(departamento);
 	}
+	
+	public void removerDepartamento(long id) {
+		this.departamentoRepository.deleteById(id);
+	}
 }

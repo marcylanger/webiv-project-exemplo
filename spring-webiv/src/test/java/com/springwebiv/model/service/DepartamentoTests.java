@@ -10,11 +10,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.TransactionSystemException;
 
 import com.springwebiv.model.entity.CargoEnum;
 import com.springwebiv.model.entity.Departamento;
 import com.springwebiv.model.entity.Funcionario;
 import com.springwebiv.model.repository.DepartamentoRepository;
+import com.springwebiv.model.repository.FuncionarioRepository;
 
 public class DepartamentoTests extends AbstractIntegrationTests {
 
@@ -24,7 +26,8 @@ public class DepartamentoTests extends AbstractIntegrationTests {
 	@Autowired
 	private DepartamentoRepository departamentoRepository;
 	
-	
+	@Autowired
+	private FuncionarioRepository funcionarioRepository;
 	
 	/**
 	 * ====================================== CADASTRAR ===========================================
@@ -160,17 +163,48 @@ public class DepartamentoTests extends AbstractIntegrationTests {
 		
 	}
 	
-	@Test(expected = ConstraintViolationException.class)
+	@Test(expected = TransactionSystemException.class)
 	@Sql({ "/dataset/truncate.sql",  
 		"/dataset/departamentos.sql", 
 		"/dataset/funcionarios.sql" })
 	public void atualizarDepartamentoMustFailSemNome() {
 		
 		Departamento departamento = this.departamentoRepository.findById(1001L).orElse(null);
-		departamento.setNome("");
+		departamento.setNome(null);
 		
 		this.departamentoService.atualizarDepartamento(departamento);
 		
 		
 	}
+	
+	
+	/**
+	 * ====================================== Remover ===========================================
+	 */
+	
+	@Test
+	@Sql({ "/dataset/truncate.sql",  
+		"/dataset/departamentos.sql", 
+		"/dataset/funcionarios.sql" })
+	public void removerDepartamentoMustPassComFuncionarios() {
+		this.departamentoService.removerDepartamento(1001L);
+		
+		Departamento departamento = this.departamentoRepository.findById(1001L).orElse(null);
+		Assert.assertNull(departamento);
+		
+		
+		Funcionario funcionario1 = 
+				this.funcionarioRepository.findById(1001L).orElse(null);
+		
+		Assert.assertNull(funcionario1);
+		
+		Funcionario funcionario2 = 
+				this.funcionarioRepository.findById(1002L).orElse(null);
+		
+		Assert.assertNull(funcionario2);
+		
+	}
+	
+	
+	
 }
