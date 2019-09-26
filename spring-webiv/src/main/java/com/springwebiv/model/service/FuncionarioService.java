@@ -1,10 +1,13 @@
 package com.springwebiv.model.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -70,6 +73,19 @@ public class FuncionarioService {
 		this.funcionarioRepository.deleteById(id);
 	}
 	
+	/**
+	 * Lista os funcionários por departamento
+	 * @param departamentoId
+	 * @param pageable
+	 * @return
+	 */
+	public Page<Funcionario> listarFuncionariosPorDepartamento(long departamentoId, PageRequest pageable){
+		return this.funcionarioRepository.findByDepartamentoId(departamentoId, pageable);
+	}
+	
+	public Page<Funcionario> listarFuncionariosPorFiltros(String nome, String cpf, LocalDate dataNascimentoInicial, LocalDate dataNascimentoFinal, PageRequest pageable){
+		return this.funcionarioRepository.findByFilters(nome, cpf, pageable);
+	}
 	
 	
 	

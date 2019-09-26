@@ -64,8 +64,7 @@ public class Funcionario extends AbstractEntity implements Serializable {
 	@Enumerated( EnumType.ORDINAL )
 	private CargoEnum cargo;
 	
-	@ManyToOne(targetEntity = Departamento.class, 
-			cascade = CascadeType.PERSIST,
+	@ManyToOne(targetEntity = Departamento.class,
 			fetch = FetchType.LAZY,
 			optional = false)
 	private Departamento departamento;
