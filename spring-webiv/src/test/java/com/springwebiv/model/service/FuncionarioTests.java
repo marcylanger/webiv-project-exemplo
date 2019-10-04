@@ -317,6 +317,8 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 		
 		Assert.assertNull(funcionario);
 	}
+	
+	
 		
 	
 	

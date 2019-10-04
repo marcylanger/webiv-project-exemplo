@@ -1,0 +1,16 @@
+<div xmlns:th="http://www.w3.org/1999/xhtml">
+    <h1>Seja bem-vindo!</h1>
+
+    <h3>Sua conta foi criada com sucesso.</h3>
+
+    <p>
+        Utilize o email <b th:text="${user.email}"></b> e
+        senha cadastrados para entrar no sistema.
+    </p>
+
+    <p>
+        <a class="mc-template-link" href="${url}" target="_blank">
+            <a th:href="${url}">Clique aqui para começar.</a>
+        </a>
+    </p>
+</div>
