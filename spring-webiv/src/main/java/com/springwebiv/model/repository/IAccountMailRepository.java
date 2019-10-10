@@ -15,8 +15,8 @@ public interface IAccountMailRepository
      *-------------------------------------------------------------------*/
 
 	/**
-	 *
-	 * @param user
+	 * Envia email notificando criação de conta do usuário
+	 * @param usuario
 	 * @return
 	 */
 	Future<Void> sendNewUserAccount( Usuario usuario );
@@ -26,7 +26,7 @@ public interface IAccountMailRepository
 	 * @param user
 	 * @return
 	 */
-	Future<Void> sendPasswordReset( Usuario usuario );
+	Future<Void> sendPasswordReseted( Usuario usuario );
 
 	/**
 	 *
@@ -40,7 +40,7 @@ public interface IAccountMailRepository
 	 * @param user
 	 * @return
 	 */
-	Future<Void> sendAccountActivated( Usuario usuario, Boolean emailEsqueciSenha );
+	Future<Void> sendAccountActivated( Usuario usuario );
 
 	/**
 	 *
@@ -48,4 +48,12 @@ public interface IAccountMailRepository
 	 * @return
 	 */
 	Future<Void> sendAccountInactivated( Usuario usuario );
+	
+	/**
+	 *
+	 * @param user
+	 * @return
+	 */
+	Future<Void> sendResetPassword( Usuario usuario );
+
 }

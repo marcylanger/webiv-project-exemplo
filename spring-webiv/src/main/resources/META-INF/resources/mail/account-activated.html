@@ -4,24 +4,15 @@
         <span style="font-weight: normal">Prezado </span>
         <b th:text="${user.nome} + ','"></b>
     </h3>
-    <div th:if="${emailEsqueciSenha == false}">
+    
         <div>
             <span>Seu usuário foi ativado.</span>
         </div>
         <div>
             <span>Use o link a seguir para acessar a plataforma: </span>
-            <a href="${link}+${user.passwordResetToken}" target="_blank">
-                <a th:href="${link}+${user.passwordResetToken}" th:text="${link}+${user.passwordResetToken}"></a>
+            <a href="${link}" target="_blank">
+                <a th:href="${link}" th:text="${link}"></a>
             </a>
         </div>
-    </div>
 
-     <div th:if="${emailEsqueciSenha == true}">
-        <div>
-            <span th:text="Acesse o sistema através do link: "></span>
-            <a href="${link}+${user.passwordResetToken}" target="_blank">
-                <a th:href="${link}+${user.passwordResetToken}" th:text="${link}+${user.passwordResetToken}"></a>
-            </a>
-        </div>
-     </div>
 </div>

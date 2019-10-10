@@ -1,13 +1,15 @@
 package com.springwebiv.model.entity;
 
 import java.time.OffsetDateTime;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -57,14 +59,10 @@ public class Usuario extends AbstractEntity implements UserDetails {
 	@Size(max = 100)
 	private String senha;
 	
-	/**
-	 *
-	 */
-	@NotNull
-	@Column(nullable = false)
-	private Boolean disabled;
 
-	
+	/**
+	 * 
+	 */
 	@Enumerated( EnumType.ORDINAL )
 	private RoleEnum perfil;
 
@@ -87,10 +85,27 @@ public class Usuario extends AbstractEntity implements UserDetails {
 	 * Data que expira o token de ativar a conta
 	 */
 	private OffsetDateTime accountActivateTokenExpiration;
+	
+	/**
+	 * 
+	 */
+	@Column(nullable = false)
+	private Boolean ativo;
 
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+	@Transient
+	public Set<GrantedAuthority> getAuthorities()
+	{
+		final Set<GrantedAuthority> authorities = new HashSet<>();
+
+		if ( this.perfil == null )
+		{
+			return null;
+		}
+		
+		authorities.addAll( this.perfil.getAuthorities() );
+
+		return authorities;
 	}
 
 	@Override
@@ -120,12 +135,26 @@ public class Usuario extends AbstractEntity implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return this.ativo;
 	}
 	
-	public void generateToken()
+	public void generatePasswordResetToken()
 	{
 		this.passwordResetToken = UUID.randomUUID().toString();
+		this.passwordResetTokenExpiration = OffsetDateTime.now().plusDays( 1 );
+
+	}
+	
+	public void generateAccountActivateToken()
+	{
+		this.accountActivateToken = UUID.randomUUID().toString();
+		this.accountActivateTokenExpiration = OffsetDateTime.now().plusDays( 1 );
+
+	}
+	
+	public void generatePassword()
+	{
+		this.senha = UUID.randomUUID().toString();
 
 	}
 	
