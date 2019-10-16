@@ -6,14 +6,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -23,11 +20,12 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.util.Assert;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -64,6 +62,7 @@ public class Funcionario extends AbstractEntity implements Serializable {
 	@Enumerated( EnumType.ORDINAL )
 	private CargoEnum cargo;
 	
+	@JsonIgnoreProperties("funcionarios")
 	@ManyToOne(targetEntity = Departamento.class,
 			fetch = FetchType.LAZY,
 			optional = false)

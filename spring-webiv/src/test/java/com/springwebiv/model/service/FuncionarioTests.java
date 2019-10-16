@@ -37,7 +37,8 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 	@Test
 	@Sql({ "/dataset/truncate.sql",  
 		"/dataset/departamentos.sql", 
-		"/dataset/funcionarios.sql" })
+		"/dataset/funcionarios.sql",
+		"/dataset/usuarios.sql"})
 	public void listarFuncionariosMustPass() {
 		List<Funcionario> funcionarios = this.funcionarioService.listarFuncionarios();
 		Assert.assertEquals(funcionarios.size(), 4);

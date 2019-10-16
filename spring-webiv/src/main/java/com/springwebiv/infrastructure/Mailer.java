@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.springwebiv.configuration.settings.AppSettings;
+import com.springwebiv.application.configuration.settings.AppSettings;
 
 
 /**

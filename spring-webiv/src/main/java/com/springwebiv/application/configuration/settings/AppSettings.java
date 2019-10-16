@@ -1,4 +1,4 @@
-package com.springwebiv.configuration.settings;
+package com.springwebiv.application.configuration.settings;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

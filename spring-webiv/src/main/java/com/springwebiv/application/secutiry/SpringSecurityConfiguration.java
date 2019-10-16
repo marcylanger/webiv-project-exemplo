@@ -1,4 +1,4 @@
-package com.springwebiv.security;
+package com.springwebiv.application.secutiry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +27,10 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.formLogin()
 		.defaultSuccessUrl("/index")
 		.and().httpBasic().disable();
+		
+		/*http
+		.authorizeRequests()
+			.antMatchers( "/api/*" ).permitAll();*/
 	}
 	
 	protected void authenticationConfigure(AuthenticationManagerBuilder auth) throws Exception {

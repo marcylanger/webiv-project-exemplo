@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.context.Context;
 
-import com.springwebiv.configuration.settings.AppSettings;
+import com.springwebiv.application.configuration.settings.AppSettings;
 import com.springwebiv.model.entity.Usuario;
 import com.springwebiv.model.repository.IAccountMailRepository;
 

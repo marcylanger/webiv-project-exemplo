@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.springwebiv.configuration;
+package com.springwebiv.application.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

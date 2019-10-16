@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import com.springwebiv.configuration.settings.AppSettings;
+import com.springwebiv.application.configuration.settings.AppSettings;
+import com.springwebiv.application.secutiry.RequestContext;
 import com.springwebiv.model.entity.Usuario;
 import com.springwebiv.model.repository.IAccountMailRepository;
 import com.springwebiv.model.repository.UsuarioRepository;
-import com.springwebiv.security.RequestContext;
 
 
 @Service
