@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
 
-import javax.validation.ConstraintViolationException;
+import javax.validation.ValidationException;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -89,7 +89,7 @@ public class DepartamentoTests extends AbstractIntegrationTests {
 		
 	}
 	
-	@Test(expected = ConstraintViolationException.class)
+	@Test(expected = ValidationException.class)
 	@Sql({ "/dataset/truncate.sql",  
 		"/dataset/departamentos.sql"})
 	public void cadastrarDepartamentoMustFailSemNome() {

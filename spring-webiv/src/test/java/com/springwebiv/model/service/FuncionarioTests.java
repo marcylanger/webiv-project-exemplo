@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
-import javax.validation.ConstraintViolationException;
+import javax.validation.ValidationException;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -167,7 +167,7 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 
 	}
 
-	@Test(expected = ConstraintViolationException.class)
+	@Test(expected = ValidationException.class)
 	@Sql({ "/dataset/truncate.sql",  
 		"/dataset/departamentos.sql", 
 		"/dataset/funcionarios.sql" })
@@ -243,7 +243,7 @@ public class FuncionarioTests extends AbstractIntegrationTests {
 
 	}
 
-	@Test(expected = ConstraintViolationException.class)
+	@Test(expected = ValidationException.class)
 	@Sql({ "/dataset/truncate.sql",  
 		"/dataset/departamentos.sql", 
 		"/dataset/funcionarios.sql" })
