@@ -36,8 +36,8 @@ public class Departamento extends AbstractEntity implements Serializable{/**
 	 *  não estiver vinculado a outro departamento ele será excluído
 	 * Enquanto que, cascade remove quer dizer que se eu remover o departamento os funcionários serão removidos*/
 	@JsonIgnoreProperties("departamento")
-	@OneToMany(targetEntity = Funcionario.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
-			fetch = FetchType.EAGER, mappedBy = "departamento", orphanRemoval = true)
+	@OneToMany(targetEntity = Funcionario.class,
+			fetch = FetchType.EAGER, mappedBy = "departamento")
 	private List<Funcionario> funcionarios = new ArrayList<Funcionario>();
 	
 	

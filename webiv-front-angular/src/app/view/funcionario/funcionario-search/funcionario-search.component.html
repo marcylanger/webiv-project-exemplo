@@ -1,0 +1,13 @@
+<div fxLayout="column" fxFlex class="div-content">
+
+    <div fxLayout="row" class="header-form">
+            <span fxFlex>Consulta de Funcionários</span>
+            <div>
+                    <button mat-raised-button color="accent" (click)="navigateToNovo()">Novo Funcionário</button>
+            </div>
+    </div>
+            
+    <div fxFlex>
+            <app-funcionario-list [funcionarios]="funcionarios" (selecionarFuncionario)="navigateTo($event)"></app-funcionario-list>
+    </div>
+</div>

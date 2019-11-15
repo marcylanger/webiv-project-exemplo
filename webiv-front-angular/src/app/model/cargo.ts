@@ -1,0 +1,2 @@
+export let CargoValues: string[] = ['ANALISTA_SISTEMAS', 'DESENVOLVEDOR', 'GERENTE_PROJETOS'];
+export type Cargo = 'ANALISTA_SISTEMAS' | 'DESENVOLVEDOR' | 'GERENTE_PROJETOS';
