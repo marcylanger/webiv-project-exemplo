@@ -3,6 +3,7 @@ import { Funcionario } from 'src/app/model/funcionario';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FuncionarioService } from 'src/app/service/funcionario.service';
+import { MessagesService } from 'src/app/service/messages.service';
 
 @Component({
   selector: 'app-funcionario-form',
@@ -32,8 +33,11 @@ export class FuncionarioFormComponent implements OnInit {
    * @param router 
    * @param departamentoService 
    */
-  constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute,
-    private router: Router, private funcionarioService: FuncionarioService) { }
+  constructor(private fb: FormBuilder, 
+    private activatedRoute: ActivatedRoute,
+    private router: Router, 
+    private funcionarioService: FuncionarioService,
+    private messageService: MessagesService) { }
 
   /**
    * Método chamado ao iniciar a classe
@@ -80,15 +84,18 @@ export class FuncionarioFormComponent implements OnInit {
       if(this.funcionario.id == null){
         this.funcionarioService.cadastrar(this.funcionario).subscribe(res => {
           this.funcionario = res;
+          this.messageService.toastSuccess('Funcionário cadastrado com sucesso.');
           this.onBack();
         },
-          (error: any) => alert(error)
-          );
+          (error: any) => {
+            this.messageService.toastError(error.error.message);
+          });
       }
       else{
         this.funcionarioService.editar(this.funcionario).subscribe(res => {
           this.funcionario = res;
           this.isOnUpdate = true;
+          this.messageService.toastSuccess('Funcionário atualizado com sucesso.');
           this.onBack();
         },
           (error: any) => alert(error)
@@ -96,7 +103,7 @@ export class FuncionarioFormComponent implements OnInit {
       }
 
     } else {
-      alert("Deu ruim");
+      this.messageService.toastWarnning('Preencha todos os campos obrigatórios antes de salvar.');
       
     }
   }
@@ -112,8 +119,9 @@ export class FuncionarioFormComponent implements OnInit {
       this.funcionarioForm.get("departamento").setValue(res.departamento);
       this.isOnUpdate = true;
     },
-    (error: any) => alert(error)
-    );
+    (error: any) => {
+      this.messageService.toastError(error.error.message);
+    });
     
   }
 

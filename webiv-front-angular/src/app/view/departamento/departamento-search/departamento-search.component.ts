@@ -3,6 +3,7 @@ import { Departamento } from 'src/app/model/departamento';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DepartamentoService } from 'src/app/service/departamento.service';
 import { TipoAcaoValues } from 'src/app/model/tipo-acao';
+import { MessagesService } from 'src/app/service/messages.service';
 
 @Component({
   selector: 'app-departamento-search',
@@ -24,7 +25,8 @@ export class DepartamentoSearchComponent implements OnInit {
    */
   constructor(private router: Router,
             private activatedRoute: ActivatedRoute,
-            private departamentoService: DepartamentoService) { 
+            private departamentoService: DepartamentoService,
+            private messageService: MessagesService) { 
   }
 
   /**
@@ -68,15 +70,22 @@ export class DepartamentoSearchComponent implements OnInit {
     this.departamentoService.listar().subscribe(dados => {
       this.departamentos = dados;
     },
-    (error: any) => console.log(error)
-    );
+    (error: any) => {
+      console.log(error);
+      console.log(error.error.message);
+      this.messageService.toastError(error.error.message);
+    });
   }
     
   remover(id: number){
     this.departamentoService.remover(id).subscribe(dados => {
+      this.messageService.toastSuccess('Departamento excluído com sucesso.');
       this.listar();
     },
-    (error: any) => console.log(error)
-    );
+    (error: any) => {
+      console.log(error.error.message);
+      this.messageService.toastError(error.error.message);
+      
+    });
   }
 }

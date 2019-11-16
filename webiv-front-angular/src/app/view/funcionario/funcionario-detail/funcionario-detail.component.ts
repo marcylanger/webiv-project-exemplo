@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Funcionario } from 'src/app/model/funcionario';
 import { FuncionarioService } from 'src/app/service/funcionario.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MessagesService } from 'src/app/service/messages.service';
 
 @Component({
   selector: 'app-funcionario-detail',
@@ -17,7 +18,8 @@ export class FuncionarioDetailComponent implements OnInit {
 
   constructor(private funcionarioService: FuncionarioService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private messageService: MessagesService) { }
 
   ngOnInit() {
     this.funcionario = new Funcionario(null, null, null, null, null, null, null, null, null, null, null);
@@ -35,7 +37,9 @@ export class FuncionarioDetailComponent implements OnInit {
     this.funcionarioService.detalhar(this.funcionario.id).subscribe(res => {
       this.funcionario = new Funcionario(res.id, res.nome, res.salario, res.cpf, res.horaEntrada, res.horaSaida, res.dataDemissao, res.dataNascimento, res.cargo, res.departamento, res.idade);
     },
-    (error: any) => alert(error)
+    (error: any) => {
+      this.messageService.toastError(error.error.message);
+    }
     );
     
   }

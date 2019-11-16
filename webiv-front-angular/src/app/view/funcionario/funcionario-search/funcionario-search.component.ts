@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Funcionario } from 'src/app/model/funcionario';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FuncionarioService } from 'src/app/service/funcionario.service';
+import { MessagesService } from 'src/app/service/messages.service';
 
 @Component({
   selector: 'app-funcionario-search',
@@ -23,7 +24,8 @@ export class FuncionarioSearchComponent implements OnInit {
    */
   constructor(private router: Router,
             private activatedRoute: ActivatedRoute,
-            private funcionarioService: FuncionarioService) { 
+            private funcionarioService: FuncionarioService,
+            private messageService: MessagesService) { 
   }
 
   /**
@@ -62,8 +64,9 @@ export class FuncionarioSearchComponent implements OnInit {
     this.funcionarioService.listar().subscribe(dados => {
       this.funcionarios = dados;
     },
-    (error: any) => console.log(error)
-    );
+    (error: any) => {
+      this.messageService.toastError(error.error.message);
+    });
   }
     
 

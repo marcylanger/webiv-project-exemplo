@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Departamento } from 'src/app/model/departamento';
 import { DepartamentoService } from 'src/app/service/departamento.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MessagesService } from 'src/app/service/messages.service';
 
 @Component({
   selector: 'app-departamento-detail',
@@ -17,7 +18,8 @@ export class DepartamentoDetailComponent implements OnInit {
 
   constructor(private departamentoService: DepartamentoService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private messageService: MessagesService) { }
 
   ngOnInit() {
     this.departamento = new Departamento(null, null, null, null);
@@ -35,7 +37,9 @@ export class DepartamentoDetailComponent implements OnInit {
     this.departamentoService.detalhar(this.departamento.id).subscribe(res => {
       this.departamento = new Departamento(res.id, res.nome, res.descricao, []);
     },
-    (error: any) => alert(error)
+    (error: any) => {
+      this.messageService.toastError(error.error.message);
+    }
     );
     
   }

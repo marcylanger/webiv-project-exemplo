@@ -71,3 +71,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; overflow-y:
   .field-detail {
       margin-top: 20px;
   }
+
+  /* Estilos dos Toasts */
+  .toast {
+    white-space: pre-line;
+  }
+  
+  .toast-error {
+    background-color: #c62828 !important; }
+
+  .toast-warnning {
+    background-color: #f9a825 !important; }
+
+  .toast-success {
+    background-color: #2e7d32 !important; }

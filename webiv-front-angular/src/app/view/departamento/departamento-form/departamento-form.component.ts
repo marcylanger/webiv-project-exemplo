@@ -3,6 +3,7 @@ import { Departamento } from 'src/app/model/departamento';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DepartamentoService } from 'src/app/service/departamento.service';
+import { MessagesService } from 'src/app/service/messages.service';
 
 @Component({
   selector: 'app-departamento-form',
@@ -35,7 +36,8 @@ export class DepartamentoFormComponent implements OnInit {
   constructor(private fb: FormBuilder, 
     private activatedRoute: ActivatedRoute,
     private router: Router, 
-    private departamentoService: DepartamentoService) { }
+    private departamentoService: DepartamentoService,
+    private messageService: MessagesService) { }
 
   /**
    * Método chamado ao iniciar a classe
@@ -82,23 +84,28 @@ export class DepartamentoFormComponent implements OnInit {
       if(this.departamento.id == null){
         this.departamentoService.cadastrar(this.departamento).subscribe(res => {
           this.departamento = res;
+          this.messageService.toastSuccess('Departamento cadastrado com sucesso.');
           this.onBack();
         },
-          (error: any) => alert(error)
-          );
+          (error: any) => {
+            this.messageService.toastError(error.error.message);
+          });
       }
       else{
         this.departamentoService.editar(this.departamento).subscribe(res => {
           this.departamento = res;
           this.isOnUpdate = true;
+          this.messageService.toastSuccess('Departamento atualizado com sucesso.');
           this.onBack();
         },
-          (error: any) => alert(error)
+          (error: any) => {
+            this.messageService.toastError(error.error.message);
+          }
           );
       }
 
     } else {
-      alert("Deu ruim");
+      this.messageService.toastWarnning('Preencha todos os campos obrigatórios antes de salvar.');
       
     }
   }
@@ -114,7 +121,9 @@ export class DepartamentoFormComponent implements OnInit {
       this.departamentoForm.get("descricao").setValue(res.descricao);
       this.isOnUpdate = true;
     },
-    (error: any) => alert(error)
+    (error: any) => {
+      this.messageService.toastError(error.error.message);
+    }
     );
     
   }

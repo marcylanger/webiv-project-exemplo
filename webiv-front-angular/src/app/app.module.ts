@@ -30,6 +30,7 @@ import { FuncionarioDetailComponent } from './view/funcionario/funcionario-detai
 import { FuncionarioSearchComponent } from './view/funcionario/funcionario-search/funcionario-search.component';
 import { FuncionarioFormComponent } from './view/funcionario/funcionario-form/funcionario-form.component';
 import { FuncionarioListComponent } from './view/funcionario/funcionario-list/funcionario-list.component';
+import { MessagesService } from './service/messages.service';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { FuncionarioListComponent } from './view/funcionario/funcionario-list/fu
   ],
   providers: [
     UsuarioService,
-    DepartamentoService
+    DepartamentoService,
+    MessagesService
   ],
   bootstrap: [AppComponent]
 })
