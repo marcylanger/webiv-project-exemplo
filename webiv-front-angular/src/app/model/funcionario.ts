@@ -1,6 +1,7 @@
 import { Time } from '@angular/common'
 import { Cargo } from './cargo'
 import { Departamento } from './departamento';
+import { Moment } from 'moment';
 
 export class Funcionario {
     constructor(

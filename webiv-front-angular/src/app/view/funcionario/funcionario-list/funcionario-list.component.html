@@ -1,8 +1,14 @@
 <mat-card class="background-color" fxFlex>
-    <mat-list *ngFor="let func of funcionarios" role="list" >
-            <mat-list-item (click)="selecionar(func.id, false)" class="item-list" role="listitem" fxFlex>
-                    <span fxFlex>{{func.nome | uppercase}}</span>
-                    <button class="button-option" (click)="selecionar(func.id, true)"><mat-icon>edit</mat-icon></button>
-            </mat-list-item>
-    </mat-list>
+                <mat-list *ngFor="let func of funcionarios" role="list" >
+                        <mat-list-item  
+                        class="item-list" role="listitem" fxFlex>
+                                <div fxFlex (click)="selecionar(func.id, 0)">
+                                        <span fxFlex>{{func.nome | uppercase}}</span>
+                                </div>
+                                <button class="button-option" (click)="selecionar(func.id, 1)">
+                                        <mat-icon>edit</mat-icon></button>
+                                <button class="button-option" (click)="selecionar(func.id, 2)">
+                                        <mat-icon>delete</mat-icon></button>
+                        </mat-list-item>
+                </mat-list>
 </mat-card>

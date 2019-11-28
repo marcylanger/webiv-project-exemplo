@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Funcionario } from 'src/app/model/funcionario';
+import { TipoAcaoValues } from 'src/app/model/tipo-acao';
 
 
 @Component({
@@ -18,8 +19,8 @@ export class FuncionarioListComponent implements OnInit {
   ngOnInit() {
   }
 
-  selecionar(id: any, toEdit: boolean) {
-    this.selecionarFuncionario.emit({funcionarioSelecionadoId : id, toEdit : toEdit})
+  selecionar(id: any, acao: number) {
+    this.selecionarFuncionario.emit({funcionarioSelecionadoId : id, acaoRealizada : TipoAcaoValues[acao]})
 
   }
 }

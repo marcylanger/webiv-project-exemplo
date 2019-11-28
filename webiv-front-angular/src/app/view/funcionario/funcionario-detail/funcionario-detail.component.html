@@ -63,7 +63,7 @@
 
                         <div fxLayout="column" fxFlex=50 class="field-detail">
                             <span>Data de Demissão:</span>
-                            <span class="label-detail-value">{{funcionario.dataDemissao | date: 'dd/MM/yyyy'}}</span>
+                            <span class="label-detail-value">{{funcionario.dataDemissao != null ? (funcionario.dataDemissao | date: 'dd/MM/yyyy') : '-' }}</span>
                         </div>
                 </div>
     

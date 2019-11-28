@@ -20,7 +20,10 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.util.Assert;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -50,7 +53,7 @@ public class Funcionario extends AbstractEntity implements Serializable {
 	private String cpf;
 	
 	private LocalTime horaEntrada;
-	
+
 	private LocalTime horaSaida;
 	
 	private LocalDateTime dataDemissao;
@@ -69,9 +72,6 @@ public class Funcionario extends AbstractEntity implements Serializable {
 	private Departamento departamento;
 	
 	
-	@Transient
-	private Integer idade;
-	
 	
 	/**
 	 * =========================== MÉTODOS
@@ -83,7 +83,8 @@ public class Funcionario extends AbstractEntity implements Serializable {
 	public Integer getIdade() {
 		if(dataNascimento != null) {
 			return LocalDate.now().getYear() - dataNascimento.getYear();
-		}else return this.idade;
+		}
+		return 0;
 		
 	}
 	

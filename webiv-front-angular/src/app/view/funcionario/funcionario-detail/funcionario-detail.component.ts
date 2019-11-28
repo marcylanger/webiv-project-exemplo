@@ -3,6 +3,8 @@ import { Funcionario } from 'src/app/model/funcionario';
 import { FuncionarioService } from 'src/app/service/funcionario.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessagesService } from 'src/app/service/messages.service';
+import * as moment from 'moment';
+import { ParserToDateService } from 'src/app/service/parser-to-date.service';
 
 @Component({
   selector: 'app-funcionario-detail',
@@ -19,7 +21,8 @@ export class FuncionarioDetailComponent implements OnInit {
   constructor(private funcionarioService: FuncionarioService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private messageService: MessagesService) { }
+    private messageService: MessagesService,
+    private parserToDate: ParserToDateService) { }
 
   ngOnInit() {
     this.funcionario = new Funcionario(null, null, null, null, null, null, null, null, null, null, null);
@@ -36,6 +39,9 @@ export class FuncionarioDetailComponent implements OnInit {
   loadDados(){
     this.funcionarioService.detalhar(this.funcionario.id).subscribe(res => {
       this.funcionario = new Funcionario(res.id, res.nome, res.salario, res.cpf, res.horaEntrada, res.horaSaida, res.dataDemissao, res.dataNascimento, res.cargo, res.departamento, res.idade);
+      
+      this.funcionario.dataNascimento = this.parserToDate.parser(this.funcionario.dataNascimento);
+      this.funcionario.dataDemissao = this.parserToDate.parser(this.funcionario.dataDemissao);
     },
     (error: any) => {
       this.messageService.toastError(error.error.message);
